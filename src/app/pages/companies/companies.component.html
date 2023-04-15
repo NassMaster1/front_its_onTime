@@ -1,0 +1,231 @@
+<div class="container">
+  <h3 id="titreStat"> NOS STATS SUR LES COMPANIES AERIENNES </h3>
+
+<!-- #########################################################################################
+  ############################  ICI LES CARDS ################################################
+  ############################################################################################ -->
+
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-1">
+        <img src="assets/img_1.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"> Retards companies </h5>
+          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <button id="buttonSeeStat" type="button" class="seeStat btn" (click)="opensm(contentDelayCompanies)" >  Voir les stats </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-1">
+        <img src="assets/img_1.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">companie_cancelled </h5>
+          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <button id="buttonSeeStat2" type="button"  class= "seeStat btn" (click)="opensm(contentCancelled)" >  Voir les stats </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-1">
+        <img src="assets/img_1.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Retards selon les états </h5>
+          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <button id="buttonSeeStat3" type="button"  class= "seeStat btn"  (click)="opensm(contentState)" >  Voir les stats </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- #########################################################################################
+  #############################################################################################
+  ############################################################################################ -->
+
+
+  <!-- #########################################################################################
+  ############################  Retard Companies par année ####################################
+  ############################################################################################ -->
+
+  <ng-template #contentDelayCompanies let-modal>
+    <div>
+      <div class="modal-header">
+        <p class="modal-title" id="modal-basic-title"> Configurer votre graph </p>
+        <button  class="btn" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="CompanieForm" (ngSubmit)="openGraphMeanDelayCompanies(contentGraph)">
+
+      <div class="modal-body">
+        <label for="typeGraph">Type de graph</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="typeGraph" id="typeGraph">
+            <option value="line">Line</option>
+            <option value="bar">Bar</option>
+            <option value="radar">radar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeCompanie">Companie</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeCompanie" id="codeCompanie">
+            <option *ngFor="let code of codeCompanies" [value]="code">{{ code }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="year">Année</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="year" id="year" >
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="SeeGraphButton"  type="submit" class="btn" > Voir </button>
+    </form>
+  </ng-template>
+
+  <!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->
+
+
+  <!-- #########################################################################################
+############################  VOLS ANNULES PAR COMPANIE ########################################
+############################################################################################ -->
+  <ng-template #contentCancelled let-modal>
+    <div>
+      <div class="modal-header">
+        <p class="modal-title" id="modal-basic-titleCancelled"> Configurer votre graph </p>
+        <button  class="btn" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="CompanieForm" (ngSubmit)="openCancelledbyyCompanies(contentGraph)">
+
+      <div class="modal-body">
+        <label for="typeGraph">Type de graph</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="typeGraph" id="typeGraph2">
+            <option value="line">Line</option>
+            <option value="bar">Bar</option>
+            <option value="radar">radar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeCompanie">Companie</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeCompanie" id="codeCompanie2">
+            <option *ngFor="let code of codeCompanies" [value]="code">{{ code }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="year">Année</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="year" id="year2" >
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="SeeGraphButton2"  type="submit" class="btn" > Voir </button>
+    </form>
+  </ng-template>
+
+  <!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->
+
+  <!-- #########################################################################################
+############################  RETARDS SELON LES ETATS ######################################
+############################################################################################ -->
+  <ng-template #contentState let-modal>
+    <div>
+      <div class="modal-header">
+        <p class="modal-title" id="modal-basic-titleState"> Configurer votre graph </p>
+        <button  class="btn" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="StatesForm" (ngSubmit)="openGraphMeanDelayState(contentGraph)">
+
+      <div class="modal-body">
+        <label for="typeGraph">Type de graph</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="typeGraph" id="typeGraph3">
+            <option value="line">Line</option>
+            <option value="bar">Bar</option>
+            <option value="radar">radar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeStateOrigin">Départ état</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeStateOrigin" id="codeStateOrigin">
+            <option *ngFor="let state of listState" [value]="state">{{ state }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeStateDest">Arrivé état</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeStateDest" id="codeStateDest">
+            <option *ngFor="let state of listState" [value]="state">{{ state }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="year">Année</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="year" id="year3" >
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="SeeGraphButton3"  type="submit" class="btn" > Voir </button>
+    </form>
+  </ng-template>
+
+  <!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->
+
+  <!-- #########################################################################################
+############################  CANVS GRAPH CHART.JS ########################################
+############################################################################################ -->
+
+  <ng-template #contentGraph let-modal>
+    <div>
+        <button  class="btn close" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+    </div>
+    <canvas id="chart1"></canvas>
+  </ng-template>
+</div>
+
+<!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->

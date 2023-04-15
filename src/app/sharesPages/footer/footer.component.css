@@ -1,0 +1,39 @@
+#logo_reseau ul a{
+  margin:3px;
+
+  text-align: center;
+  display: inline-block;
+}
+
+#logo_reseau ul a{
+  margin-top: 2%;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-top: 5%;
+  background: rgb(13, 64, 66);
+  background: linear-gradient(90deg, rgb(93, 181, 185) 10%, rgb(204, 241, 245) 42%);
+}
+
+
+#logoContactBook span{
+  background-color: #0d4042;
+}
+
+
+#logoNanterre {
+  width: 40%;
+  height: auto;
+  margin-left: 30%;
+  margin-top: 3%;
+}
+
+#logoMiage {
+  width: 35%;
+  height: auto;
+  margin-left: 30%;
+  margin-top: 5%;
+}
