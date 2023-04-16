@@ -22,6 +22,11 @@ export class CompanieService {
     return this.httpClient.get(urlApi)
   }
 
+  getListCity():Observable<any> {
+    let urlApi=this.companieBaseUrl+'list_city'
+    return this.httpClient.get(urlApi)
+  }
+
   public meanDelayCompanies(paramGraphElement: String, paramGraphElement2: String):Observable<any>{
     let urlApi=this.companieBaseUrl+'companie_delay_trend?companie_code='+paramGraphElement+'&year='+paramGraphElement2
     console.log(urlApi)
@@ -40,5 +45,10 @@ export class CompanieService {
     return this.httpClient.get(urlApi)
   }
 
+  public delayCity(paramGraphOrigin: String, paramGraphDest: String,paramGraphYear:string):Observable<any>{
+    let urlApi=this.companieBaseUrl+'city_delay_trend?originCityName='+paramGraphOrigin+'&destCityName='+paramGraphDest+'&year='+paramGraphYear
+    console.log(urlApi)
+    return this.httpClient.get(urlApi)
+  }
 
 }
