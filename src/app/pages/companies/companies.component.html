@@ -38,6 +38,18 @@
         </div>
       </div>
     </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-1">
+        <img src="assets/img_1.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Retards selon les villes </h5>
+          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <button id="buttonSeeStat4" type="button"  class= "seeStat btn"  (click)="opensm(contentCity)" >  Voir les stats </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- #########################################################################################
@@ -211,6 +223,70 @@
   <!-- #########################################################################################
 #############################################################################################
 ############################################################################################ -->
+
+
+  <!-- #########################################################################################
+############################  RETARDS SELON LES VILLES ######################################
+############################################################################################ -->
+  <ng-template #contentCity let-modal>
+    <div>
+      <div class="modal-header">
+        <p class="modal-title" id="modal-basic-titleCity"> Configurer votre graph </p>
+        <button  class="btn" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="CityForm" (ngSubmit)="openGraphMeanDelayCity(contentGraph)">
+
+      <div class="modal-body">
+        <label for="typeGraph">Type de graph</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="typeGraph" id="typeGraph4">
+            <option value="line">Line</option>
+            <option value="bar">Bar</option>
+            <option value="radar">radar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeCityOrigin">Départ ville </label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeCityOrigin" id="codeCityOrigin">
+            <option *ngFor="let city of listCity" [value]="city">{{ city }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeCityDest">Arrivé ville</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeCityDest" id="codeCityDest">
+            <option *ngFor="let city of listCity" [value]="city">{{ city }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="year">Année</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="year" id="year4" >
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="SeeGraphButton4"  type="submit" class="btn" > Voir </button>
+    </form>
+  </ng-template>
+
+  <!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->
+
+
 
   <!-- #########################################################################################
 ############################  CANVS GRAPH CHART.JS ########################################
