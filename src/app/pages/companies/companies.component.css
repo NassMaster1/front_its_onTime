@@ -2,10 +2,6 @@ h3,h5{
   text-align: center;
 }
 
-.card {
-  max-width: 300px; /* set a maximum width for the card */
-  height: auto;
-}
 
 #titreStat{
   justify-items: center;

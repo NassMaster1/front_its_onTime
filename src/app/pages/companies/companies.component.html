@@ -10,6 +10,17 @@
       <div class="card m-1">
         <img src="assets/img_1.png" class="card-img-top" alt="...">
         <div class="card-body">
+          <h5 class="card-title"> Comparaison des companies </h5>
+          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <button id="buttonSeeStat5" type="button" class="seeStat btn" (click)="openGraphComparaisonCompanie(contentGraph)" >  Voir les stats </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-1">
+        <img src="assets/img_1.png" class="card-img-top" alt="...">
+        <div class="card-body">
           <h5 class="card-title"> Retards companies </h5>
           <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
           <button id="buttonSeeStat" type="button" class="seeStat btn" (click)="opensm(contentDelayCompanies)" >  Voir les stats </button>
@@ -73,16 +84,6 @@
 
     <form [formGroup]="CompanieForm" (ngSubmit)="openGraphMeanDelayCompanies(contentGraph)">
 
-      <div class="modal-body">
-        <label for="typeGraph">Type de graph</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="typeGraph" id="typeGraph">
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
-            <option value="radar">radar</option>
-          </select>
-        </div>
-      </div>
 
       <div class="modal-body">
         <label for="codeCompanie">Companie</label>
@@ -93,14 +94,6 @@
         </div>
       </div>
 
-      <div class="modal-body">
-        <label for="year">Année</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="year" id="year" >
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-          </select>
-        </div>
-      </div>
 
       <button id="SeeGraphButton"  type="submit" class="btn" > Voir </button>
     </form>
@@ -126,16 +119,6 @@
 
     <form [formGroup]="CompanieForm" (ngSubmit)="openCancelledbyyCompanies(contentGraph)">
 
-      <div class="modal-body">
-        <label for="typeGraph">Type de graph</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="typeGraph" id="typeGraph2">
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
-            <option value="radar">radar</option>
-          </select>
-        </div>
-      </div>
 
       <div class="modal-body">
         <label for="codeCompanie">Companie</label>
@@ -146,14 +129,6 @@
         </div>
       </div>
 
-      <div class="modal-body">
-        <label for="year">Année</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="year" id="year2" >
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-          </select>
-        </div>
-      </div>
 
       <button id="SeeGraphButton2"  type="submit" class="btn" > Voir </button>
     </form>
@@ -178,16 +153,6 @@
 
     <form [formGroup]="StatesForm" (ngSubmit)="openGraphMeanDelayState(contentGraph)">
 
-      <div class="modal-body">
-        <label for="typeGraph">Type de graph</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="typeGraph" id="typeGraph3">
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
-            <option value="radar">radar</option>
-          </select>
-        </div>
-      </div>
 
       <div class="modal-body">
         <label for="codeStateOrigin">Départ état</label>
@@ -207,14 +172,6 @@
         </div>
       </div>
 
-      <div class="modal-body">
-        <label for="year">Année</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="year" id="year3" >
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-          </select>
-        </div>
-      </div>
 
       <button id="SeeGraphButton3"  type="submit" class="btn" > Voir </button>
     </form>
@@ -240,16 +197,6 @@
 
     <form [formGroup]="CityForm" (ngSubmit)="openGraphMeanDelayCity(contentGraph)">
 
-      <div class="modal-body">
-        <label for="typeGraph">Type de graph</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="typeGraph" id="typeGraph4">
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
-            <option value="radar">radar</option>
-          </select>
-        </div>
-      </div>
 
       <div class="modal-body">
         <label for="codeCityOrigin">Départ ville </label>
@@ -269,14 +216,6 @@
         </div>
       </div>
 
-      <div class="modal-body">
-        <label for="year">Année</label>
-        <div class="input-group mb-3">
-          <select class=" form-select"  formControlName="year" id="year4" >
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-          </select>
-        </div>
-      </div>
 
       <button id="SeeGraphButton4"  type="submit" class="btn" > Voir </button>
     </form>
