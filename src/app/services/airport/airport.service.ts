@@ -12,9 +12,15 @@ export class AirportService {
 
   constructor(private httpClient: HttpClient ) { }
 
-  public getAllAirport(): Observable<Object>{
-    return this.httpClient.get(this.airportBaseUrl+'airport_list')
+  public getListCodeAirPort(): Observable<any>{
+    return this.httpClient.get(this.airportBaseUrl+'airport_dep_list')
   }
+
+
+  public getAirPortDetail(paramGraphElement:any): Observable<any>{
+    return this.httpClient.get(this.airportBaseUrl+'airport_dep_delay_trend?airport_code='+paramGraphElement)
+  }
+
 
 }
 
