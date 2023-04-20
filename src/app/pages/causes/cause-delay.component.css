@@ -1,0 +1,44 @@
+h3,h5{
+    text-align: center;
+  }
+  
+  .card {
+    max-width: 300px; /* set a maximum width for the card */
+    height: auto;
+  }
+  
+  #titreStat{
+    justify-items: center;
+    margin-top: 5%;
+    margin-bottom: 1%;
+    font-weight: bold;
+    font-size: x-large;
+    color: #4c4e4e;
+  }
+  
+  button[type="submit"]{
+    background-color: #5db5b9;
+    color: white;
+    margin-left: 80%;
+    margin-bottom: 2%;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #c3d1da;
+  }
+  .seeStat{
+    background-color: #5db5b9;
+    color: white;
+  }
+  
+  .seeStat:hover{
+    background-color: #c3d1da;
+  }
+  .close{
+    margin-left: 95%;
+  }
+  
+  canvas{
+    margin: 2%;
+  }
+  

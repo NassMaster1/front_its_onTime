@@ -230,11 +230,10 @@ export class CompaniesComponent implements OnInit{
 
   //Fonction pour créer le graph chart.js en param: le data
   createCharCompanie(data:any,text:string,typeGraph:string) {
-    this.chart = new Chart("chart1", {
-      // @ts-ignore
-      type:typeGraph,
+     new Chart("chart1", {
+      type:"doughnut",
       data: {
-        labels: ['Janvier', 'Février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'],
+        labels:  ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
         datasets: [{
           label: text,
           data: data,

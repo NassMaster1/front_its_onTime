@@ -12,6 +12,7 @@ import { CompaniesComponent } from './pages/companies/companies.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CauseDelayComponent } from './pages/causes/cause-delay.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AirportComponent,
     TimesComponent,
     CapacityComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    CauseDelayComponent
   ],
   imports: [
     BrowserModule,
