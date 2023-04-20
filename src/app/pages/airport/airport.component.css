@@ -37,3 +37,17 @@ button[type="submit"]:hover {
 canvas{
   margin: 2%;
 }
+
+.card{
+  font-size: small;
+
+
+}
+
+h5{
+  font-size: medium;
+}
+
+.seeStat{
+  margin-left: 45%;
+}

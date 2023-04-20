@@ -8,10 +8,10 @@
   <div class="row">
 
     <div class="col-sm-12 col-md-6 col-lg-3">
-      <div class="card m-1">
+      <div class="card m-2">
         <img src="assets/img_1.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title"> Retards dans l'aéroport </h5>
+          <h5 class="card-title"> Retards dans les aéroports </h5>
           <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
           <button id="buttonSeeStat" type="button" class="seeStat btn" (click)="opensm(contentDelayAirPort)" >  Voir les stats </button>
         </div>
@@ -19,10 +19,10 @@
     </div>
 
     <div class="col-sm-12 col-md-6 col-lg-3">
-      <div class="card m-1">
-        <img src="assets/img_1.png" class="card-img-top" alt="...">
+      <div class="card m-2">
+        <img src="assets/img_airportCancelled.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">AirPort_cancelled </h5>
+          <h5 class="card-title">Vols annulés aux aéroports </h5>
           <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
           <button id="buttonSeeStat2" type="button"  class= "seeStat btn" (click)="opensm(contentCancelled)" >  Voir les stats </button>
         </div>
@@ -37,7 +37,7 @@
 
 
   <!-- #########################################################################################
-  ############################  Retard Companies par année ####################################
+  ############################  Retard dans les aeroport par année ####################################
   ############################################################################################ -->
 
   <ng-template #contentDelayAirPort let-modal>
@@ -73,7 +73,7 @@
 
 
   <!-- #########################################################################################
-############################  VOLS ANNULES PAR COMPANIE ########################################
+############################  VOLS ANNULES DANS LES AEROPORT ########################################
 ############################################################################################ -->
   <ng-template #contentCancelled let-modal>
     <div>

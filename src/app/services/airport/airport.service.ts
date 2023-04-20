@@ -21,6 +21,5 @@ export class AirportService {
     return this.httpClient.get(this.airportBaseUrl+'airport_dep_delay_trend?airport_code='+paramGraphElement)
   }
 
-
 }
 
