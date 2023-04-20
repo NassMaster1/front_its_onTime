@@ -1,6 +1,126 @@
-<p>airport works!</p>
-<p>airport works!</p>
+<div class="container">
+  <h3 id="titreStat"> NOS STATS SUR LES AEROPORT USA  </h3>
+
+  <!-- #########################################################################################
+    ############################  ICI LES CARDS ################################################
+    ############################################################################################ -->
+
+  <div class="row">
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-2">
+        <img src="assets/img_1.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"> Retards dans les aéroports </h5>
+          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <button id="buttonSeeStat" type="button" class="seeStat btn" (click)="opensm(contentDelayAirPort)" >  Voir les stats </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-2">
+        <img src="assets/img_airportCancelled.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Vols annulés aux aéroports </h5>
+          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <button id="buttonSeeStat2" type="button"  class= "seeStat btn" (click)="opensm(contentCancelled)" >  Voir les stats </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- #########################################################################################
+  #############################################################################################
+  ############################################################################################ -->
 
 
-<canvas id="barCanvas"  aria-label="chart" role="img"> </canvas>
+  <!-- #########################################################################################
+  ############################  Retard dans les aeroport par année ####################################
+  ############################################################################################ -->
 
+  <ng-template #contentDelayAirPort let-modal>
+    <div>
+      <div class="modal-header">
+        <p class="modal-title" id="modal-basic-title"> Configurer votre graph </p>
+        <button  class="btn" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="AirPortForm" (ngSubmit)="openGraphMeanDelayAirPort(contentGraph)">
+
+
+      <div class="modal-body">
+        <label for="codeAirPort">Aéroport</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeAirPort" id="codeAirPort">
+            <option *ngFor="let code of codeAirPort" [value]="code">{{ code }}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <button id="SeeGraphButton"  type="submit" class="btn" > Voir </button>
+    </form>
+  </ng-template>
+
+  <!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->
+
+
+  <!-- #########################################################################################
+############################  VOLS ANNULES DANS LES AEROPORT ########################################
+############################################################################################ -->
+  <ng-template #contentCancelled let-modal>
+    <div>
+      <div class="modal-header">
+        <p class="modal-title" id="modal-basic-titleCancelled"> Configurer votre graph </p>
+        <button  class="btn" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <form [formGroup]="AirPortForm" (ngSubmit)="openCancelledbyyAirPort(contentGraph)">
+
+
+      <div class="modal-body">
+        <label for="codeAirPort">Aéroport</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeAirPort" id="codeAirPort2">
+            <option *ngFor="let code of codeAirPort" [value]="code">{{ code }}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <button id="SeeGraphButton2"  type="submit" class="btn" > Voir </button>
+    </form>
+  </ng-template>
+
+  <!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->
+
+
+  <!-- #########################################################################################
+############################  CANVS GRAPH CHART.JS ########################################
+############################################################################################ -->
+
+  <ng-template #contentGraph let-modal>
+    <div>
+      <button  class="btn close" (click)="modal.dismiss('Cross click')">
+        <i class="bi bi-x-square"></i>
+      </button>
+    </div>
+    <canvas id="chart1"></canvas>
+  </ng-template>
+</div>
+
+<!-- #########################################################################################
+#############################################################################################
+############################################################################################ -->

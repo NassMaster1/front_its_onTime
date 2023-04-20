@@ -4,6 +4,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {CompanieService} from "../../services/companies/companie.service";
 
+
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
@@ -20,7 +21,6 @@ export class CompaniesComponent implements OnInit{
   StatesForm!:FormGroup
   CityForm!:FormGroup
   chart!:Chart
-  years!:Array<number>
   codeCompanies!:Array<string>
   listState!:Array<string>
   listCity!:Array<string>
@@ -36,30 +36,24 @@ export class CompaniesComponent implements OnInit{
 ############################################################################################ */
   // Ici on initialise le formulaire
   ngOnInit(): void {
-    this.inializeyears()
+
     this.handelGetListCodeCompanies()
     this.handelGetListStates()
     this.handelGetListcity()
 
     this.CompanieForm=this.fp.group({
       codeCompanie: this.fp.control(null),
-      year: this.fp.control(null),
-      typeGraph:this.fp.control(null)
     })
 
     this.StatesForm=this.fp.group({
       codeStateOrigin: this.fp.control(null),
-      codeStateDest:this.fp.control(null),
-      year: this.fp.control(null),
-      typeGraph:this.fp.control(null)
+      codeStateDest:this.fp.control(null)
 
     })
 
     this.CityForm=this.fp.group({
       codeCityOrigin: this.fp.control(null),
       codeCityDest:this.fp.control(null),
-      year: this.fp.control(null),
-      typeGraph:this.fp.control(null)
 
     })
   }
@@ -82,14 +76,7 @@ export class CompaniesComponent implements OnInit{
     }
   }
 
-  private inializeyears(){
-    const years: number[] = [];
 
-    for (let i = 2004; i <= 2020; i++) {
-      years.push(i);
-    }
-    this.years=years
-  }
 
   /*#########################################################################################
 #############################################################################################
@@ -136,26 +123,33 @@ export class CompaniesComponent implements OnInit{
 
   async handleCancelledCompanies() : Promise<any>{
     let paramGraph=this.CompanieForm.value;
-    let data = await this.companieService.CancelledCompanies(paramGraph["codeCompanie"],paramGraph["year"]).toPromise();
+    let data = await this.companieService.CancelledCompanies(paramGraph["codeCompanie"]).toPromise();
     return data;
   }
 
   async handleDelayStates() : Promise<any>{
     let paramGraph=this.StatesForm.value;
-    let data = await this.companieService.delayStates(paramGraph["codeStateOrigin"],paramGraph["codeStateDest"],paramGraph["year"]).toPromise();
+    let data = await this.companieService.delayStates(paramGraph["codeStateOrigin"],paramGraph["codeStateDest"]).toPromise();
     return data;
   }
 
   async handleDelayCity() : Promise<any>{
     let paramGraph=this.CityForm.value;
-    let data = await this.companieService.delayCity(paramGraph["codeCityOrigin"],paramGraph["codeCityDest"],paramGraph["year"]).toPromise();
+    let data = await this.companieService.delayCity(paramGraph["codeCityOrigin"],paramGraph["codeCityDest"]).toPromise();
     return data;
   }
 
   // Fonction qui appelle l'API et retuen un Promise Any pour la syncronisation
   async handleMeanDelayCompanies() : Promise<any>{
     let paramGraph=this.CompanieForm.value;
-    let data = await this.companieService.meanDelayCompanies(paramGraph["codeCompanie"],paramGraph["year"]).toPromise();
+    let data = await this.companieService.meanDelayCompanies(paramGraph["codeCompanie"]).toPromise();
+    return data;
+  }
+
+  // Fonction qui appelle l'API et retuen un Promise Any pour la syncronisation
+  async handleMeanCompaCompanies() : Promise<any>{
+
+    let data = await this.companieService.meanCompaCompanies().toPromise();
     return data;
   }
 
@@ -194,8 +188,18 @@ export class CompaniesComponent implements OnInit{
     //étape 2
     this.openlg(content)
     //étape 3
-    let text="Retard des avions pour la companie "+this.CompanieForm.value["codeCompanie"] + " pour l\'anée: "+this.CompanieForm.value["year"]
-    this.createCharCompanie(data["mean_delay"],text,this.CompanieForm.value["typeGraph"])
+    let text="Retard des avions pour la companie "+this.CompanieForm.value["codeCompanie"] + " pour 5 dernières années"
+    this.createCharCompanieDelayMean(data["mean_delay"],text)
+  }
+
+  async openGraphComparaisonCompanie(content: any) {
+    //étape 1
+    let data = await this.handleMeanCompaCompanies();
+    //étape 2
+    this.openlg(content)
+    //étape 3
+    let text="Comparaison des companies selon leurs retard sur les 5 dernieres années"
+    this.createCharCompanieCompa(data["Reporting_Airline"],data["mean_delay"],text)
   }
 
   async  openCancelledbyyCompanies(content: any) {
@@ -204,8 +208,8 @@ export class CompaniesComponent implements OnInit{
     //étape 2
     this.openlg(content)
     //étape 3
-    let text="Vols annulés pour la companie "+this.CompanieForm.value["codeCompanie"] + " pour l\'anée: "+this.CompanieForm.value["year"]
-    this.createCharCompanie(data["sum_cancelled"],text,this.CompanieForm.value["typeGraph"])
+    let text="Vols annulés pour la companie "+this.CompanieForm.value["codeCompanie"] + " pour 5 dernières années"
+    this.createCharCompanieCancelled(data["sum_cancelled"],data["count_flights"],text)
   }
 
   async  openGraphMeanDelayState(content: any) {
@@ -214,8 +218,8 @@ export class CompaniesComponent implements OnInit{
     //étape 2
     this.openlg(content)
     //étape 3
-    let text="Les retards selon l'état "+this.StatesForm.value["codeStateOrigin"]+ " à destination de " +this.StatesForm.value["codeStateDest"]  + " pour l\'année: "+this.StatesForm.value["year"]
-    this.createCharCompanie(data["mean_delay"],text,this.StatesForm.value["typeGraph"])
+    let text="Les retards selon l'état "+this.StatesForm.value["codeStateOrigin"]+ " à destination de " +this.StatesForm.value["codeStateDest"]  + " pour 5 dernières années"
+    this.createCharCompanieOriginDest(data["mean_delay"],text)
   }
 
   async openGraphMeanDelayCity(content: any) {
@@ -224,15 +228,15 @@ export class CompaniesComponent implements OnInit{
     //étape 2
     this.openlg(content)
     //étape 3
-    let text="Les retards selon la ville "+this.CityForm.value["codeCityOrigin"]+ " à destination de " +this.CityForm.value["codeCityDest"]  + " pour l\'année: "+this.CityForm.value["year"]
-    this.createCharCompanie(data["mean_delay"],text,this.CityForm.value["typeGraph"])
+    let text="Les retards selon la ville "+this.CityForm.value["codeCityOrigin"]+ " à destination de " +this.CityForm.value["codeCityDest"]  + " pour 5 dernières années"
+    this.createCharCompanieOriginDest(data["mean_delay"],text)
   }
 
   //Fonction pour créer le graph chart.js en param: le data
-  createCharCompanie(data:any,text:string,typeGraph:string) {
+  createCharCompanieDelayMean(data:any,text:string) {
     this.chart = new Chart("chart1", {
       // @ts-ignore
-      type:typeGraph,
+      type:"bar",
       data: {
         labels: ['Janvier', 'Février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'],
         datasets: [{
@@ -245,6 +249,104 @@ export class CompaniesComponent implements OnInit{
         scales: {
           y: {
             beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  //Fonction pour créer le graph chart.js en param: le data
+  createCharCompanieOriginDest(data:any,text:string) {
+    this.chart = new Chart("chart1", {
+      // @ts-ignore
+      type:"line",
+      data: {
+        labels: ['Janvier', 'Février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'],
+        datasets: [{
+          label: text,
+          data: data,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  createCharCompanieCompa(data1:any,data2:any,text:string) {
+    const colors = [];
+
+    for (let i = 0; i < data2.length; i++) {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      colors.push(`rgb(${r}, ${g}, ${b} )`);
+    }
+
+    this.chart = new Chart("chart1", {
+      type: "bar",
+      data: {
+        labels: data1,
+        datasets: [{
+          label: text,
+          data: data2,
+          borderWidth: 2,
+          backgroundColor: colors, // Use generated colors
+          borderColor: colors,
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+
+
+
+  //Fonction pour créer le graph chart.js en param: le data
+  createCharCompanieCancelled(data1:any,data2:any,text:string) {
+    this.chart = new Chart("chart1", {
+      // @ts-ignore
+      type:"bar",
+      data: {
+        labels: ['Janvier', 'Février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'],
+        datasets: [{
+          label: "Total des vols",
+          data: data2,
+          borderWidth: 2
+        },{
+          label: text,
+          data: data1,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Chart.js Bar Chart - Stacked'
+          },
+        },
+        responsive: true,
+        interaction: {
+          intersect: false,
+        },
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true
           }
         }
       }
