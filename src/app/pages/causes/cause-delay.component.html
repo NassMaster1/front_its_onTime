@@ -1,0 +1,81 @@
+<div class="container">
+    <h3 id="titreStat"> STATS Causes des retards</h3>
+  
+  <!-- #########################################################################################
+    ############################  ICI LES CARDS ################################################
+    ############################################################################################ -->
+  
+    <div class="row">
+
+      <div class="col-sm-12 col-md-6 col-lg-3">
+        <div class="card m-1">
+          <img src="assets/img_1.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"> Causes Retards</h5>
+            <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+            <button id="buttonSeeStat" type="button" class="seeStat btn" (click)="opensm(contentDelayCompanies)">  Voir les stats </button>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+    <!-- ########################ICI POPUP PARAMETRES################################-->
+
+    <ng-template #contentDelayCompanies let-modal>
+        <div>
+          <div class="modal-header">
+            <p class="modal-title" id="modal-basic-title"> Configurer votre graph </p>
+            <button  class="btn" (click)="modal.dismiss('Cross click')">
+              <i class="bi bi-x-square"></i>
+            </button>
+          </div>
+        </div>
+    
+        <form [formGroup]="CompanieForm" (ngSubmit)="openGraphMeanDelayState(contentGraph)">
+
+          <div class="modal-body">
+            <label for="codeStateOrigin">Ville départ</label>
+            <div class="input-group mb-3">
+              <select class=" form-select"  formControlName="codeStateOrigin" id="codeStateOrigin">
+                <option *ngFor="let state of listState" [value]="state">{{ state }}</option>
+              </select>
+            </div>
+          </div>
+    
+          <div class="modal-body">
+            <label for="codeStateDest">Ville destination</label>
+            <div class="input-group mb-3">
+              <select class=" form-select"  formControlName="codeStateDest" id="codeStateDest">
+                <option *ngFor="let state of listState" [value]="state">{{ state }}</option>
+              </select>
+            </div>
+          </div>
+    
+          <button id="SeeGraphButton"  type="submit" class="btn" > Voir </button>
+        </form>
+    </ng-template>
+
+      <!-- #########################################################################################
+############################  CANVS GRAPH CHART.JS ########################################
+############################################################################################ -->
+
+  <ng-template #contentGraph let-modal>
+    <div>
+        <button  class="btn close" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+    </div>
+    <canvas id="chart1"></canvas>
+  </ng-template>
+
+<ng-template #contentGraph let-modal>
+    <div>
+        <button  class="btn close" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+    </div>
+    <canvas id="chart1"></canvas>
+  </ng-template>
+  
+</div>

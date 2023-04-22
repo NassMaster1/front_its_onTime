@@ -27,28 +27,35 @@ export class CompanieService {
     return this.httpClient.get(urlApi)
   }
 
-  public meanDelayCompanies(paramGraphElement: String, paramGraphElement2: String):Observable<any>{
-    let urlApi=this.companieBaseUrl+'companie_delay_trend?companie_code='+paramGraphElement+'&year='+paramGraphElement2
+  public meanDelayCompanies(paramGraphElement: String):Observable<any>{
+    let urlApi=this.companieBaseUrl+'companie_delay_trend?companie_code='+paramGraphElement
     console.log(urlApi)
     return this.httpClient.get(urlApi)
   }
 
-  public CancelledCompanies(paramGraphElement: String, paramGraphElement2: String):Observable<any>{
-    let urlApi=this.companieBaseUrl+'companie_cancelled?companie_code='+paramGraphElement+'&year='+paramGraphElement2
+  public CancelledCompanies(paramGraphElement: String):Observable<any>{
+    let urlApi=this.companieBaseUrl+'companie_cancelled?companie_code='+paramGraphElement
     console.log(urlApi)
     return this.httpClient.get(urlApi)
   }
 
-  public delayStates(paramGraphOrigin: String, paramGraphDest: String,paramGraphYear:string):Observable<any>{
-    let urlApi=this.companieBaseUrl+'state_delay_trend?state_origin_name='+paramGraphOrigin+'&state_dest_name='+paramGraphDest+'&year='+paramGraphYear
+  public delayStates(paramGraphOrigin: String, paramGraphDest: String):Observable<any>{
+    let urlApi=this.companieBaseUrl+'state_delay_trend?state_origin_name='+paramGraphOrigin+'&state_dest_name='+paramGraphDest
     console.log(urlApi)
     return this.httpClient.get(urlApi)
   }
 
-  public delayCity(paramGraphOrigin: String, paramGraphDest: String,paramGraphYear:string):Observable<any>{
-    let urlApi=this.companieBaseUrl+'city_delay_trend?originCityName='+paramGraphOrigin+'&destCityName='+paramGraphDest+'&year='+paramGraphYear
+  public delayCity(paramGraphOrigin: String, paramGraphDest: String):Observable<any>{
+    let urlApi=this.companieBaseUrl+'city_delay_trend?originCityName='+paramGraphOrigin+'&destCityName='+paramGraphDest
     console.log(urlApi)
     return this.httpClient.get(urlApi)
   }
+
+  public meanCompaCompanies():Observable<any>{
+    let urlApi=this.companieBaseUrl+'companie_delay_compa'
+    console.log(urlApi)
+    return this.httpClient.get(urlApi)
+  }
+
 
 }
