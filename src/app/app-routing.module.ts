@@ -13,7 +13,7 @@ const routes: Routes = [
   {path:"Companies",component:CompaniesComponent },
   {path:"Aéroport",component:AirportComponent },
   {path:"Temps",component: TimesComponent},
-  {path:"Capacity",component: CapacityComponent}
+  {path:"Capacity",component: CapacityComponent},
   {path:"Causes",component: CauseDelayComponent}
 ];
 

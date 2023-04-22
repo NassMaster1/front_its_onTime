@@ -25,7 +25,7 @@ import { AcceuilComponent } from './pages/acceuil/acceuil.component';
     TimesComponent,
     CapacityComponent,
     CompaniesComponent,
-    CauseDelayComponent
+    CauseDelayComponent,
     AcceuilComponent
   ],
   imports: [
