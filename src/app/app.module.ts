@@ -13,6 +13,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CauseDelayComponent } from './pages/causes/cause-delay.component';
+import { AcceuilComponent } from './pages/acceuil/acceuil.component';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { CauseDelayComponent } from './pages/causes/cause-delay.component';
     CapacityComponent,
     CompaniesComponent,
     CauseDelayComponent
+    AcceuilComponent
   ],
   imports: [
     BrowserModule,
