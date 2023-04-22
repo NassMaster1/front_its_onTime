@@ -4,8 +4,8 @@ import {CompaniesComponent} from "./pages/companies/companies.component";
 import {AirportComponent} from "./pages/airport/airport.component";
 import {TimesComponent} from "./pages/times/times.component";
 import {CapacityComponent} from "./pages/capacity/capacity.component";
+import { CauseDelayComponent } from './pages/causes/cause-delay.component';
 import {AcceuilComponent} from "./pages/acceuil/acceuil.component";
-
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
   {path:"Aéroport",component:AirportComponent },
   {path:"Temps",component: TimesComponent},
   {path:"Capacity",component: CapacityComponent}
-
+  {path:"Causes",component: CauseDelayComponent}
 ];
 
 @NgModule({
