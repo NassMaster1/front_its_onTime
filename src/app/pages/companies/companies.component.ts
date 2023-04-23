@@ -261,7 +261,7 @@ export class CompaniesComponent implements OnInit{
     this.chart = new Chart("chart1", {
       type:"line",
       data: {
-        labels:  ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+        labels:  ['Janvier', 'Février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'],
         datasets: [{
           label: text,
           data: data,
