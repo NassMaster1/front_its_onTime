@@ -1,14 +1,14 @@
 <div class="container">
     <h3 id="titreStat"> STATS Causes des retards</h3>
-  
+
   <!-- #########################################################################################
     ############################  ICI LES CARDS ################################################
     ############################################################################################ -->
-  
+
     <div class="row">
 
       <div class="col-sm-12 col-md-6 col-lg-3">
-        <div class="card m-1">
+        <div class="card m-2">
           <img src="assets/img_1.png" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title"> Causes Retards</h5>
@@ -17,9 +17,9 @@
           </div>
         </div>
       </div>
-  
+
     </div>
-  
+
     <!-- ########################ICI POPUP PARAMETRES################################-->
 
     <ng-template #contentDelayCompanies let-modal>
@@ -31,7 +31,7 @@
             </button>
           </div>
         </div>
-    
+
         <form [formGroup]="CompanieForm" (ngSubmit)="openGraphMeanDelayState(contentGraph)">
 
           <div class="modal-body">
@@ -42,7 +42,7 @@
               </select>
             </div>
           </div>
-    
+
           <div class="modal-body">
             <label for="codeStateDest">Ville destination</label>
             <div class="input-group mb-3">
@@ -51,7 +51,7 @@
               </select>
             </div>
           </div>
-    
+
           <button id="SeeGraphButton"  type="submit" class="btn" > Voir </button>
         </form>
     </ng-template>
@@ -77,5 +77,5 @@
     </div>
     <canvas id="chart1"></canvas>
   </ng-template>
-  
+
 </div>
