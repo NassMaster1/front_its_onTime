@@ -21,12 +21,14 @@ export class TimesComponent implements OnInit{
   TimeForm!:FormGroup
   HourForm!:FormGroup
   CityForm!:FormGroup
+  StatesForm!:FormGroup
   chart!:Chart
   years!:Array<number>
   codeCompanies!:Array<string>
   listState!:Array<string>
   listCity!:Array<string>
   options!:Array<string>
+  hours!:Array<string>
 
   /*#########################################################################################
 #############################################################################################
@@ -44,24 +46,26 @@ export class TimesComponent implements OnInit{
     this.handelGetListCodeCompanies()
     this.handelGetListStates()
     this.handelGetListcity()
+    this.inializeHourDelay()
 
     this.TimeForm=this.fp.group({
       option: this.fp.control(null),
-      year: this.fp.control(null),
-      typeGraph:this.fp.control(null)
+      codeStateOrigin: this.fp.control(null),
+      codeStateDest:this.fp.control(null)
     })
 
     this.HourForm=this.fp.group({
-      year: this.fp.control(null),
-      typeGraph:this.fp.control(null)
+      codeStateOrigin: this.fp.control(null),
+      codeStateDest:this.fp.control(null),
+      hour:this.fp.control(null)
 
     })
 
-    this.CityForm=this.fp.group({
-      codeCityOrigin: this.fp.control(null),
-      codeCityDest:this.fp.control(null),
-      year: this.fp.control(null),
-      typeGraph:this.fp.control(null)
+    this.StatesForm=this.fp.group({
+      codeStateOrigin: this.fp.control(null),
+      codeStateDest:this.fp.control(null),
+      option1: this.fp.control(null),
+      option2:this.fp.control(null)
 
     })
   }
@@ -95,11 +99,18 @@ export class TimesComponent implements OnInit{
 
   private inializeOptions(){
     const options: string[] = [];
-    options.push("DayOfMonth");
     options.push("DayOfWeek");
     options.push("Quarter");
     options.push("Month");
     this.options=options
+  }
+
+  private inializeHourDelay(){
+    const options: string[] = [];
+    options.push("2h");
+    options.push("4h");
+    options.push("6h");
+    this.hours=options
   }
 
   /*#########################################################################################
@@ -147,19 +158,19 @@ export class TimesComponent implements OnInit{
 
   async handleMeanDelayByTime() : Promise<any>{
     let paramGraph=this.TimeForm.value;
-    let data = await this.timeService.meanDelayByTime(paramGraph["option"],paramGraph["year"]).toPromise();
+    let data = await this.timeService.meanDelayByTime(paramGraph["option"],paramGraph["codeStateOrigin"],paramGraph["codeStateDest"]).toPromise();
     return data;
   }
 
   async handleMeanDelayByHour() : Promise<any>{
     let paramGraph=this.HourForm.value;
-    let data = await this.timeService.meanDelayByHour(paramGraph["year"]).toPromise();
+    let data = await this.timeService.meanDelayByHour(paramGraph["codeStateOrigin"],paramGraph["codeStateDest"],paramGraph["hour"]).toPromise();
     return data;
   }
 
   async handleMeanDelayDayMonth() : Promise<any>{
-    let paramGraph=this.TimeForm.value;
-    let data = await this.timeService.meanDelayDayMonth(paramGraph["year"]).toPromise();
+    let paramGraph=this.StatesForm.value;
+    let data = await this.timeService.meanDelayDayMonth(paramGraph["option1"],paramGraph["option2"],paramGraph["codeStateOrigin"],paramGraph["codeStateDest"]).toPromise();
     return data;
   }
 
@@ -198,8 +209,8 @@ export class TimesComponent implements OnInit{
     //étape 2
     this.openlg(content)
     //étape 3
-    let text="Retard des avions par heure pour l\'anée: "+this.HourForm.value["year"]
-    this.createChartHour(data["count_delayed"],text,this.HourForm.value["typeGraph"])
+    let text="Retard des avions par heure";
+    this.createChartHour(data["count_delayed"],data["max_delayed"],data["min_delayed"],text,data["hour"])
   }
 
   async  openMeanDelayByTime(content: any) {
@@ -208,41 +219,50 @@ export class TimesComponent implements OnInit{
     //étape 2
     this.openlg(content)
     //étape 3
-    let text="Retard moyen pour la période du "+this.TimeForm.value["option"] + " pour l\'anée: "+this.TimeForm.value["year"]
+    let text="Retard moyen pour la période du "+this.TimeForm.value["option"]
     if(this.TimeForm.value["option"] == "Month") {
-      this.createChartMonth(data["count_delayed"], text, this.TimeForm.value["typeGraph"])
+      this.createChartMonth(data["mean_delay"],data["highest_delay"],data["lowest_delay"], text)
     }
-    if(this.TimeForm.value["option"] == "DayOfMonth") {
-      this.createChartDayOfMonth(data["count_delayed"], text, this.TimeForm.value["typeGraph"])
+    if(this.TimeForm.value["option"] == "DayofMonth") {
+      this.createChartDayOfMonth(data["mean_delay"],data["highest_delay"],data["lowest_delay"], text)
     }
     if(this.TimeForm.value["option"] == "DayOfWeek") {
-      this.createChartDayOfWeek(data["count_delayed"], text, this.TimeForm.value["typeGraph"])
+      this.createChartDayOfWeek(data["mean_delay"],data["highest_delay"],data["lowest_delay"], text)
     }
     if(this.TimeForm.value["option"] == "Quarter") {
-      this.createChartQuarter(data["count_delayed"], text, this.TimeForm.value["typeGraph"])
+      this.createChartQuarter(data["mean_delay"],data["highest_delay"],data["lowest_delay"], text)
     }
   }
 
   async  openHeatmapDayMonth(content: any) {
     //étape 1
-    let data = await this.handleMeanDelayByHour();
+    let data = await this.handleMeanDelayDayMonth();
     //étape 2
     this.openlg(content)
     //étape 3
-    let text="Les retards selon l'état "+this.HourForm.value["codeStateOrigin"]+ " à destination de " +this.HourForm.value["codeStateDest"]  + " pour l\'année: "+this.HourForm.value["year"]
-    this.createHeatMap(data["count_delayed"],text)
+    let text="Les retards selon l'état "+this.StatesForm.value["codeStateOrigin"]+ " à destination de " +this.StatesForm.value["codeStateDest"]  + " pour l\'année: "+this.StatesForm.value["year"]
+    console.log(data);
+    this.createHeatMap(data[this.StatesForm.value["option1"]],data[this.StatesForm.value["option2"]], data["result"],text,this.StatesForm.value["option1"],this.StatesForm.value["option2"])
   }
 
   //Fonction pour créer le graph chart.myScripts.js en param: le data
-  createChartHour(data:any,text:string,typeGraph:string) {
+  createChartHour(average:any,highest: any, lowest: any, text:string, label: any) {
     this.chart = new Chart("chart1", {
       // @ts-ignore
-      type:typeGraph,
+      type:"bar",
       data: {
-        labels: ['0h-2h','2h-4h','6h-8h','10h-12h','12h-14h','14h-16h','16h-18h','18h-20h','20h-22h','22h-24h'],
+        labels: label,
         datasets: [{
-          label: text,
-          data: data,
+          label: "Highest delay",
+          data: highest,
+          borderWidth: 2
+        }, {
+          label: "Average delay",
+          data: average,
+          borderWidth: 2
+        }, {
+          label: "Lowest delay",
+          data: lowest,
           borderWidth: 2
         }]
       },
@@ -256,15 +276,23 @@ export class TimesComponent implements OnInit{
     });
   }
 
-  createChartMonth(data:any,text:string,typeGraph:string) {
+  createChartMonth(average:any, highest: any, lowest: any,text:string) {
     this.chart = new Chart("chart1", {
       // @ts-ignore
-      type:typeGraph,
+      type:"bar",
       data: {
         labels: ['Janvier', 'Février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'],
         datasets: [{
-          label: text,
-          data: data,
+          label: "Highest delay",
+          data: highest,
+          borderWidth: 2
+        }, {
+          label: "Average delay",
+          data: average,
+          borderWidth: 2
+        }, {
+          label: "Lowest delay",
+          data: lowest,
           borderWidth: 2
         }]
       },
@@ -278,15 +306,23 @@ export class TimesComponent implements OnInit{
     });
   }
 
-  createChartQuarter(data:any,text:string,typeGraph:string) {
+  createChartQuarter(average:any, highest: any, lowest: any,text:string) {
     this.chart = new Chart("chart1", {
       // @ts-ignore
-      type:typeGraph,
+      type:"bar",
       data: {
         labels: ['Printemps','Ete','Automne','Hiver'],
         datasets: [{
-          label: text,
-          data: data,
+          label: "Highest delay",
+          data: highest,
+          borderWidth: 2
+        }, {
+          label: "Average delay",
+          data: average,
+          borderWidth: 2
+        }, {
+          label: "Lowest delay",
+          data: lowest,
           borderWidth: 2
         }]
       },
@@ -300,15 +336,23 @@ export class TimesComponent implements OnInit{
     });
   }
 
-  createChartDayOfWeek(data:any,text:string,typeGraph:string) {
+  createChartDayOfWeek(average:any, highest: any, lowest: any,text:string) {
     this.chart = new Chart("chart1", {
       // @ts-ignore
-      type:typeGraph,
+      type:"bar",
       data: {
         labels: ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'],
         datasets: [{
-          label: text,
-          data: data,
+          label: "Highest delay",
+          data: highest,
+          borderWidth: 2
+        }, {
+          label: "Average delay",
+          data: average,
+          borderWidth: 2
+        }, {
+          label: "Lowest delay",
+          data: lowest,
           borderWidth: 2
         }]
       },
@@ -323,15 +367,23 @@ export class TimesComponent implements OnInit{
   }
 
 
-  createChartDayOfMonth(data:any,text:string,typeGraph:string) {
+  createChartDayOfMonth(average:any, highest: any, lowest: any,text:string) {
     this.chart = new Chart("chart1", {
       // @ts-ignore
-      type:typeGraph,
+      type:"bar",
       data: {
         labels: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],
         datasets: [{
-          label: text,
-          data: data,
+          label: "Highest delay",
+          data: highest,
+          borderWidth: 2
+        }, {
+          label: "Average delay",
+          data: average,
+          borderWidth: 2
+        }, {
+          label: "Lowest delay",
+          data: lowest,
           borderWidth: 2
         }]
       },
@@ -345,22 +397,49 @@ export class TimesComponent implements OnInit{
     });
   }
 
-  createHeatMap(data:any,text:string){
-    const xValues=['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
-    const yValues=['1','2','3','4','5','6','7','8','9','10','11','12'];
-    const zValues=[
-      [1.00, 0.9, 0.75, 0.75, 0.8],
-      [0.5, 0.5, 0.75, 0.75, 0.6],
-      [0.75, 0.75, 0.75, 0.75, 0.75],
-      [0.3, 0.4, 0.3, 0.75, 0.2]];
-    data=[{
-      x:xValues,
-      y:yValues,
-      z:zValues,
-      type:'heatmap',
-      colorscale:'YlGnBu',
+  createHeatMap(labelX:any,labelY:any,value:any,text:string, option1: any, option2:any){
+    let colorscaleValue = [
+      [0, '#EEEEEE'],
+      [1, '#000088']
+    ];
+
+    const shiftedLabelX = labelX.map((x: number) => x - 0.5);
+
+    let data = [{
+      x: shiftedLabelX,
+      y: labelY,
+      z: value,
+      type: 'heatmap',
+      xgap: 1,
+      ygap: 1,
+      colorscale: colorscaleValue,
     }];
-    Plotly.newPlot('myDiv',data,{},{responsive:true});
+    if(option2 == "DayOfWeek"){
+      let layout = {
+        xaxis: {
+          tickvals: [1, 2, 3, 4, 5, 6,7], // set the tick values to 0-indexed values
+          ticktext: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], // set the tick labels
+        }
+      };
+
+      Plotly.newPlot('myDiv', data, layout, {responsive:false});
+    }
+
+    else if(option1 == "DayOfWeek"){
+      let layout = {
+        yaxis: {
+          tickvals: [1, 2, 3, 4, 5, 6,7], // set the tick values to 0-indexed values
+          ticktext: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], // set the tick labels
+        }
+      };
+
+      Plotly.newPlot('myDiv', data, layout, {responsive:false});
+    }
+
+    else{
+      Plotly.newPlot('myDiv', data, {}, {responsive:false});
+    }
+
   }
 
   /*#########################################################################################

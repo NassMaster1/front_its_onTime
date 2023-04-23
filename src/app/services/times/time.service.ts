@@ -8,41 +8,41 @@ import {Observable} from "rxjs";
 })
 export class TimeService {
 
-  private readonly companieBaseUrl = `${environment.baseUrl}`
+  private readonly timeBaseUrl = `${environment.baseUrl}`
 
   constructor(private httpClient: HttpClient ) { }
 
   getListCodeCompanies():Observable<any>{
-    let urlApi=this.companieBaseUrl+'list_code_companies'
+    let urlApi=this.timeBaseUrl+'list_code_companies'
     return this.httpClient.get(urlApi)
   }
 
   getListStates():Observable<any>{
-    let urlApi=this.companieBaseUrl+'list_state'
+    let urlApi=this.timeBaseUrl+'list_state'
     return this.httpClient.get(urlApi)
   }
 
   getListCity():Observable<any> {
-    let urlApi=this.companieBaseUrl+'list_city'
+    let urlApi=this.timeBaseUrl+'list_city'
     return this.httpClient.get(urlApi)
   }
 
-  public meanDelayByTime(paramGraphElement: String, paramGraphElement2: String):Observable<any>{
-    let urlApi=this.companieBaseUrl+'delay_option_by_year?option='+paramGraphElement+'&year='+paramGraphElement2
+  public meanDelayByTime(paramGraphElement: String,codeStateOrigin: String,codeStateDest: String):Observable<any>{
+    let urlApi=this.timeBaseUrl+'delay_option_by_year?option='+paramGraphElement + '&codeStateOrigin='+codeStateOrigin+'&codeStateDest='+codeStateDest
     console.log(urlApi)
     return this.httpClient.get(urlApi)
   }
 
-  public meanDelayByHour(paramGraphYear:string):Observable<any>{
-    let urlApi=this.companieBaseUrl+'calculate_delay_by_2hour?year='+paramGraphYear
+  public meanDelayByHour(codeStateOrigin: String,codeStateDest: String, hour: String):Observable<any>{
+    let urlApi=this.timeBaseUrl+'calculate_delay_by_2hour?codeStateOrigin='+codeStateOrigin+'&codeStateDest='+codeStateDest +"&hour="+hour
     console.log(urlApi)
     return this.httpClient.get(urlApi)
   }
 
-  public meanDelayDayMonth(paramGraphYear:string):Observable<any>{
-    let urlApi=this.companieBaseUrl+'calculate_delay_by_2hour?year='+paramGraphYear
-    console.log(urlApi)
-    return this.httpClient.get(urlApi)
+  public meanDelayDayMonth(paramGraphOption1:string,paramGraphOption2:string,airport_depart:string,airport_arrive:string):Observable<any>{
+    let urlApi=this.timeBaseUrl+'delay_by_day_month?option1='+paramGraphOption1+'&option2='+paramGraphOption2+'&ville_depart='+encodeURIComponent(airport_depart)+'&ville_arrive='+encodeURIComponent(airport_arrive);
+    console.log(urlApi);
+    return this.httpClient.get(urlApi);
   }
 
 
