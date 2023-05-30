@@ -1,0 +1,90 @@
+h3,h5{
+  text-align: center;
+}
+
+.card {
+  max-width: 300px; /* set a maximum width for the card */
+  height: auto;
+}
+
+#titreStat{
+  justify-items: center;
+  margin-top: 5%;
+  margin-bottom: 1%;
+  font-weight: bold;
+  font-size: x-large;
+  color: #4c4e4e;
+}
+
+button[type="submit"]{
+  background-color: #5db5b9;
+  color: white;
+  margin-left: 70%;
+  margin-bottom: 2%;
+}
+
+button[type="submit"]:hover {
+  background-color: #c3d1da;
+}
+.seeStat{
+  background-color: #5db5b9;
+  color: white;
+}
+
+.seeStat:hover{
+  background-color: #c3d1da;
+}
+.close{
+  margin-left: 95%;
+}
+
+canvas{
+  margin: 2%;
+}
+
+
+
+/deep/ .cdk-overlay-container {
+  z-index:1200 !important;
+}
+
+
+.ontime-color {
+  color: green;
+  font-weight: bold;
+}
+
+.late-color {
+  color: orange;
+  font-weight: bold;
+
+}
+
+.lateplus-color {
+  color: red;
+  font-weight: bold;
+}
+
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  /*change color of label*/
+  background: white !important;
+  border: 1px solid #d3cfcf;
+}
+
+
+::ng-deep .mat-mdc-icon-button svg {
+  /*change color of label*/
+  color: #757474 !important;
+}
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  /*change color of label*/
+  color: #757474 !important;
+}
+
+
+::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  /*change color of label*/
+  color: #757474 !important;
+}
