@@ -1,0 +1,104 @@
+<div class="container">
+  <h3 id="titreStat"> Prédiction de vos vols </h3>
+
+  <!-- #########################################################################################
+    ############################  ICI LES CARDS ################################################
+    ############################################################################################ -->
+
+  <div class="row">
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      <div class="card m-2">
+        <img src="assets/img_1.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title"> Prévoir les retards de vols</h5>
+          <p class="card-text">Retards de vol? On l'a vu venir!</p>
+          <button id="buttonSeeStat" type="button" class="seeStat btn" (click)="opensm(contentPredection)">  Prédire </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ########################ICI POPUP PARAMETRES################################-->
+
+  <ng-template #contentPredection let-modal>
+    <div>
+      <div class="modal-header">
+        <p class="modal-title" id="modal-basic-title"> Entrer les infos </p>
+        <button  class="btn" (click)="modal.dismiss('Cross click')">
+          <i class="bi bi-x-square"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ######################## FOMULAIRE ################################-->
+
+    <form [formGroup]="predictForm" (ngSubmit)="openPredection()">
+
+
+      <div class="modal-body">
+        <label for="codeCompanie">Companie</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeCompanie" id="codeCompanie">
+            <option *ngFor="let code of codeCompanies" [value]="code">{{ code }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeOrigin">Aeroport départ</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeOrigin" id="codeOrigin">
+            <option *ngFor="let origin of listAirPort" [value]="origin">{{ origin }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="codeDest">Aeroport d'arriver</label>
+        <div class="input-group mb-3">
+          <select class=" form-select"  formControlName="codeDest" id="codeDest">
+            <option *ngFor="let dest of listAirPort" [value]="dest">{{ dest }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <label for="date">Date</label>
+        <div class="input-group mb-3">
+          <mat-form-field appearance="fill" class="custom-datepicker">
+            <mat-label>Choisir la date</mat-label>
+            <input matInput [matDatepicker]="picker" class="form-select" formControlName="date" id="date">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+
+
+      <button id="SeeGraphButton"  type="submit" class="btn" > Prédire </button>
+    </form>
+
+    <div class="modal-footer">
+      <div class="category-row">
+        <div class="category-label">A l'heure:</div>
+        <div class="category-value ontime-color">{{ onTime }} %</div>
+      </div>
+      <div class="category-row">
+        <div class="category-label">Retard:</div>
+        <div class="category-value late-color">{{ late }} %</div>
+      </div>
+      <div class="category-row">
+        <div class="category-label">Gravement en retard:</div>
+        <div class="category-value lateplus-color">{{ latePlus }} %</div>
+      </div>
+    </div>
+
+
+  </ng-template>
+
+</div>
+

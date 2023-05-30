@@ -40,7 +40,7 @@ ngOnInit(): void {
   this.inializeyears()
   //this.handelGetListCodeCompanies()
   this.handelGetListStates()
-  
+
 
   this.CompanieForm=this.fp.group({
     codeCompanie: this.fp.control(null),
@@ -142,13 +142,15 @@ createCharCompanie(data:any,text:string) {
           'rgba(255, 99, 132, 0.5)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(132,47,173,0.2)',
         ],
         borderColor: [
           'rgba(255,99,132,1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)'
+          'rgba(75, 192, 192, 1)',
+          'rgba(132,47,173,1)'
         ],
         borderWidth: 1
       }]
