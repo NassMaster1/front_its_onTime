@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {CompanieService} from "../../services/companies/companie.service";
 import {AirportService} from "../../services/airport/airport.service";
-import {PredictionService} from "../../services/prediction.service";
+import {PredictionService} from "../../services/prediction/prediction.service";
 
 
 @Component({
