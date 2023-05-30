@@ -174,11 +174,11 @@ export class AirportComponent {
       data: {
         labels: ['Janvier', 'Février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'],
         datasets: [{
-          label: "Total des vols",
+          label: "A l'heure",
           data: data3,
           borderWidth: 2
         },{
-          label: "vols retardés",
+          label: "Vols retardés",
           data: data2,
           borderWidth: 2
         },{

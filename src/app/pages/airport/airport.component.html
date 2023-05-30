@@ -12,7 +12,7 @@
         <img src="assets/img_1.png" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title"> Retards dans les aéroports </h5>
-          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <p class="card-text">Détecter les aéroports à haut risque de retard pour adapter les parcours de voyage en conséquence</p>
           <button id="buttonSeeStat" type="button" class="seeStat btn" (click)="opensm(contentDelayAirPort)" >  Voir les stats </button>
         </div>
       </div>
@@ -22,8 +22,8 @@
       <div class="card m-2">
         <img src="assets/img_airportCancelled.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Vols annulés aux aéroports </h5>
-          <p class="card-text">Ici on vas décrire le use case pour attirer l'utilisateur a jeter a coup d'oeil .</p>
+          <h5 class="card-title">Etats des vols par aéroport </h5>
+          <p class="card-text">Échapper aux aéroports compliqués pour garantir un voyage plus agréable et sans souci</p>
           <button id="buttonSeeStat2" type="button"  class= "seeStat btn" (click)="opensm(contentCancelled)" >  Voir les stats </button>
         </div>
       </div>
@@ -86,7 +86,6 @@
     </div>
 
     <form [formGroup]="AirPortForm" (ngSubmit)="openCancelledbyyAirPort(contentGraph)">
-
 
       <div class="modal-body">
         <label for="codeAirPort">Aéroport</label>

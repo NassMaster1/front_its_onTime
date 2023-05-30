@@ -6,6 +6,7 @@ import {TimesComponent} from "./pages/times/times.component";
 import {CapacityComponent} from "./pages/capacity/capacity.component";
 import { CauseDelayComponent } from './pages/causes/cause-delay.component';
 import {AcceuilComponent} from "./pages/acceuil/acceuil.component";
+import {PredictionComponent} from "./pages/prediction/prediction.component";
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path:"Aéroport",component:AirportComponent },
   {path:"Temps",component: TimesComponent},
   {path:"Capacity",component: CapacityComponent},
-  {path:"Causes",component: CauseDelayComponent}
+  {path:"Causes",component: CauseDelayComponent},
+  {path:"Prediction",component: PredictionComponent},
 ];
 
 @NgModule({
